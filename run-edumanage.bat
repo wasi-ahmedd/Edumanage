@@ -36,21 +36,42 @@ if not exist "frontend" (
   exit /b 1
 )
 
-set "DEFAULT_MONGO_URI=mongodb://localhost:27017/edumanage"
-set /p MONGO_URI=Enter MongoDB URI [default: %DEFAULT_MONGO_URI%]: 
-if "%MONGO_URI%"=="" set "MONGO_URI=%DEFAULT_MONGO_URI%"
+set "FIRST_TIME_SETUP=0"
 
-set /p JWT_SECRET=Enter JWT secret [default: change_this_to_a_long_random_string]: 
-if "%JWT_SECRET%"=="" set "JWT_SECRET=change_this_to_a_long_random_string"
+if not exist "backend\.env" (
+  set "FIRST_TIME_SETUP=1"
+)
 
-(
-  echo PORT=5000
-  echo MONGO_URI=%MONGO_URI%
-  echo JWT_SECRET=%JWT_SECRET%
-) > "backend\.env"
+if not exist "backend\node_modules" (
+  set "FIRST_TIME_SETUP=1"
+)
 
-echo.
-echo [1/4] Saved backend\.env
+if not exist "frontend\node_modules" (
+  set "FIRST_TIME_SETUP=1"
+)
+
+if "%FIRST_TIME_SETUP%"=="1" (
+  echo First-time setup detected.
+  echo.
+  set "DEFAULT_MONGO_URI=mongodb://localhost:27017/edumanage"
+  set /p MONGO_URI=Enter MongoDB URI [default: %DEFAULT_MONGO_URI%]: 
+  if "%MONGO_URI%"=="" set "MONGO_URI=%DEFAULT_MONGO_URI%"
+
+  set /p JWT_SECRET=Enter JWT secret [default: change_this_to_a_long_random_string]: 
+  if "%JWT_SECRET%"=="" set "JWT_SECRET=change_this_to_a_long_random_string"
+
+  (
+    echo PORT=5000
+    echo MONGO_URI=%MONGO_URI%
+    echo JWT_SECRET=%JWT_SECRET%
+  ) > "backend\.env"
+
+  echo.
+  echo [1/4] Saved backend\.env
+) else (
+  echo Existing setup found. Skipping setup prompts.
+  echo [1/4] Using existing backend\.env
+)
 
 if not exist "backend\node_modules" (
   echo [2/4] Installing backend dependencies...
