@@ -1,0 +1,71 @@
+.att-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.att-header h2 { font-size: 1.25rem; font-weight: 700; }
+
+.date-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  position: relative;
+}
+.date-display { color: var(--text); }
+.date-input {
+  position: absolute;
+  opacity: 0;
+  right: 0;
+  width: 30px;
+  cursor: pointer;
+  padding: 0;
+}
+
+.att-btns { display: flex; gap: 8px; }
+
+.att-btn {
+  padding: 7px 18px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  border-radius: 8px;
+  border: 1.5px solid transparent;
+}
+
+.att-btn.present {
+  background: #f0fdf4;
+  color: #16a34a;
+  border-color: #bbf7d0;
+}
+.att-btn.present.active,
+.att-btn.present:hover {
+  background: #22c55e;
+  color: #fff;
+  border-color: #22c55e;
+}
+
+.att-btn.absent {
+  background: #fff1f2;
+  color: #e11d48;
+  border-color: #fecdd3;
+}
+.att-btn.absent.active,
+.att-btn.absent:hover {
+  background: #ef4444;
+  color: #fff;
+  border-color: #ef4444;
+}
+
+/* reuse table styles from students */
+.table-card { background: #fff; border-radius: 14px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.05); }
+.data-table { width: 100%; border-collapse: collapse; }
+.data-table th { text-align: left; font-size: 0.75rem; font-weight: 700; color: var(--text-muted); padding: 14px 20px; border-bottom: 1px solid var(--border); letter-spacing: 0.05em; }
+.data-table td { padding: 16px 20px; border-bottom: 1px solid var(--border); font-size: 0.9rem; vertical-align: middle; }
+.data-table tr:last-child td { border-bottom: none; }
+.data-table tr:hover td { background: #fafafa; }
+.student-name { font-weight: 600; }
+.usn { color: var(--text-muted); font-family: monospace; font-size: 0.88rem; }
